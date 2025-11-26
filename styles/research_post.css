@@ -1,0 +1,60 @@
+/* styles/research_post.css */
+
+.research-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  color: #fff;
+}
+
+.paper-column h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.paper-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.paper-column li {
+  margin-bottom: 2rem;
+}
+
+.paper-column h3 a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+
+.paper-column p {
+  color: #ccc;
+}
+
+.paper-column a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.chatbot-container {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 600px;
+}
+
+#chat-input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #555;
+  background-color: #333;
+  color: #fff;
+  font-size: 1rem;
+}
+
+#chat-input::placeholder {
+  color: #aaa;
+}

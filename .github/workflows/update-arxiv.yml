@@ -1,0 +1,33 @@
+name: Update AI Papers from arXiv
+
+on:
+  schedule:
+    - cron: "0 0 */2 * *"
+  workflow_dispatch:
+
+jobs:
+  fetch-papers:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install arxiv pyyaml
+
+    - name: Fetch and update papers
+      run: python scripts/fetch_papers.py
+
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "github-actions@github.com"
+        git config --local user.name "GitHub Actions"
+        git add _research/*.md
+        git commit -m "Update AI papers from arXiv" || echo "No new papers"
+        git push

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="google-site-verification" content="4Mj86ogE81O_JQlRitf6ABYTCVM1jn0w7YL6TS4ZFNU" />
+        <title>Norse Mythology: Legends of Gods and Vikings</title>
+          <meta name="description" content="Exploring AI, robotics, and physics projects by Dishana Rupani.">
+          <link rel="icon" type="image/png" sizes="512x512" href="/assets/images/favicon1.png">
+
+            <!-- CSS Stylesheets -->
+            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+              <link rel="stylesheet" href="/styles/main.css">
+                <link rel="stylesheet" href="/styles/navbar.css">
+                  <link rel="stylesheet" href="/styles/footer.css">
+                    <link rel="stylesheet" href="/styles/homepage.css">
+                      <link rel="stylesheet" href="/styles/blog.css">
+                        <link rel="stylesheet" href="/styles/theme.css">
+                          <link rel="stylesheet" href="/styles/courses.css">
+                            
+                                  </head>
+                                  <body>
+                                  
+                                    <!-- Navbar -->
+                                      <nav class="navbar">
+    <div class="navbar-container">
+        <a href="/" class="navbar-brand">
+            <img src="https://github.com/zeural1/zeural1.github.io/blob/main/assets/images/alz.jpeg?raw=true" 
+                 alt="Zeural Logo" 
+                 class="navbar-logo-img">
+            <span class="navbar-logo-text">Zeural</span>
+        </a>
+        <ul class="navbar-menu">
+            <li><a href="/content/mythology/index.html">Mythology</a></li>
+            <li><a href="/content/ai-ml/index.html">AI-ML</a></li>
+            <li><a href="/content/courses/index.html">Courses</a></li>
+            <li><a href="/content/research/research.html">Research</a></li>
+            <li><a href="/blog.html">Blogs</a></li>
+        </ul>
+        <div class="navbar-actions">
+            <div id="search-container">
+                <input type="text" id="search-input" placeholder="Search..." class="search-bar">
+                <ul id="search-results"></ul>
+            </div>
+            <button id="search-toggle" class="search-toggle">🔍</button>
+            <button id="theme-toggle" class="theme-toggle">🌙</button>
+            <button id="mobile-toggle" class="mobile-toggle">☰</button>
+        </div>
+    </div>
+</nav>
+
+                                      
+                                        <!-- Main page content -->
+                                          <main class="content-padding">
+                                              <div class="course-container">
+  <div class="course-nav-left">
+    <h3>Course Lessons</h3>
+    <ul>
+      
+      
+        <li>
+          <a href="#" data-lesson-url="/mythology/greek-myths.html">
+            Greek Myths
+          </a>
+        </li>
+      
+        <li>
+          <a href="#" data-lesson-url="/mythology/01-odin-the-allfather.html">
+            Odin the All-Father: King of Asgard
+          </a>
+        </li>
+      
+        <li>
+          <a href="#" data-lesson-url="/mythology/02-thor-god-of-thunder.html">
+            Thor: The Mighty God of Thunder
+          </a>
+        </li>
+      
+        <li>
+          <a href="#" data-lesson-url="/mythology/03-loki-the-trickster.html">
+            Loki: The Cunning Trickster God
+          </a>
+        </li>
+      
+        <li>
+          <a href="#" data-lesson-url="/mythology/04-the-vikings.html">
+            The Vikings: Raiders, Traders, and Explorers
+          </a>
+        </li>
+      
+        <li>
+          <a href="#" data-lesson-url="/mythology/05-valhalla-and-valkyries.html">
+            Valhalla and the Valkyries: The Hall of the Slain
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="course-content" id="lesson-content">
+    
+
+  </div>
+
+  <div class="course-toc-right">
+    <h3>On this page</h3>
+    <ul id="toc"></ul>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+  const lessonLinks = document.querySelectorAll(".course-nav-left a");
+  const lessonContent = document.getElementById("lesson-content");
+  const toc = document.getElementById("toc");
+
+  // Load a lesson dynamically
+  function loadLesson(url) {
+    fetch(url)
+      .then(response => response.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        // Extract .course-content block from the rendered page
+        const newContent = doc.querySelector('.course-content');
+        if (!newContent) return;
+
+        lessonContent.innerHTML = newContent.innerHTML;
+
+        // Build TOC
+        toc.innerHTML = "";
+        const headers = lessonContent.querySelectorAll("h2, h3");
+        headers.forEach(header => {
+          const id = header.textContent.trim()
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, "-");
+
+          header.id = id;
+
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = `#${id}`;
+          a.textContent = header.textContent;
+          li.appendChild(a);
+          toc.appendChild(li);
+        });
+
+      });
+  }
+
+  // Load the first lesson automatically
+  if (lessonLinks.length > 0) {
+    const firstLessonUrl = lessonLinks[0].getAttribute("data-lesson-url");
+    loadLesson(firstLessonUrl);
+  }
+
+  // On clicking lesson
+  lessonLinks.forEach(link => {
+    link.addEventListener("click", function(event) {
+      event.preventDefault();
+      const lessonUrl = this.getAttribute("data-lesson-url");
+      loadLesson(lessonUrl);
+    });
+  });
+
+});
+</script>
+
+                                                </main>
+                                                
+                                                  <!-- Footer -->
+                                                    <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <a href="/content/about/index.html" class="footer-logo-link">
+                <img src="/assets/images/alz.jpeg" alt="Alzeural Logo" class="footer-logo-img">
+                <div class="footer-logo">Zeural</div>
+            </a>
+            <p class="footer-tagline">High quality coding education maintained by an open source community.</p>
+        </div>
+        
+        <div class="footer-column">
+            <h3>About us</h3>
+            <ul>
+                <li><a href="/content/footer/about.html">About</a></li>
+                <li><a href="/content/footer/team.html">Team</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="#">Success Stories</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h3>Support</h3>
+            <ul>
+                <li><a href="/content/footer/faq.html">FAQ</a></li>
+                <li><a href="/content/footer/contribute.html">Contribute</a></li>
+                <li><a href="/content/footer/contact.html">Contact us</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h3>Guides</h3>
+            <ul>
+                <li><a href="/content/footer/guidelines.html">Community guides</a></li>
+                <li><a href="#">Installation guides</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h3>Legal</h3>
+            <ul>
+                <li><a href="/content/footer/terms.html">Terms</a></li>
+                <li><a href="/content/footer/privacy.html">Privacy</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>© 2025 Zeural. All rights reserved.</p>
+    </div>
+</footer>
+
+                                                    
+                                                      <script src="/scripts/background.js"></script>
+                                                        <script src="/scripts/cube-animation.js"></script>
+                                                          <script src="/scripts/mythology.js"></script>
+                                                            <script src="/scripts/navbar.js"></script>
+                                                              <script src="/scripts/progress-tracker.js"></script>
+                                                              <script src="/scripts/search.js"></script>
+                                                              <script src="/scripts/theme-switcher.js"></script>
+                                                              </body>
+</html>

@@ -1,0 +1,56 @@
+---
+layout: default
+---
+
+<link rel="stylesheet" href="/styles/course.css">
+
+<div class="course-container">
+    <!-- Left Navigation Column -->
+    <nav class="course-nav">
+        <h3>All Content</h3>
+        <ul>
+            {% for doc in site.github %}
+                <li {% if page.url == doc.url %}class="active"{% endif %}>
+                    <a href="{{ doc.url | relative_url }}">{{ doc.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+    <!-- Middle Content Column -->
+    <main class="course-content">
+        {{ content }}
+    </main>
+
+    <!-- Right Table of Contents -->
+    <aside class="course-toc">
+        <h3>On This Page</h3>
+        <ul id="toc-list"></ul>
+    </aside>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const tocList = document.getElementById("toc-list");
+    const content = document.querySelector(".course-content");
+
+    if (tocList && content) {
+        const headings = content.querySelectorAll("h2, h3, h4");
+
+        headings.forEach(function(heading, index) {
+            const id = "heading-" + index;
+            heading.setAttribute("id", id);
+
+            const listItem = document.createElement("li");
+            listItem.classList.add("toc-" + heading.tagName.toLowerCase());
+
+            const link = document.createElement("a");
+            link.setAttribute("href", "#" + id);
+            link.textContent = heading.textContent;
+
+            listItem.appendChild(link);
+            tocList.appendChild(listItem);
+        });
+    }
+});
+</script>

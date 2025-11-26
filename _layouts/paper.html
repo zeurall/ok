@@ -1,0 +1,66 @@
+---
+layout: default
+---
+
+<div class="container">
+  <h1>{{ page.title }}</h1>
+  <p><strong>Authors:</strong> {{ page.authors }}</p>
+  <p><strong>Year:</strong> {{ page.year }}</p>
+  <p><strong>PDF:</strong> <a href="{{ page.pdf }}" target="_blank">{{ page.pdf }}</a></p>
+
+  <hr>
+
+  <h2>Abstract</h2>
+  <p>{{ page.abstract }}</p>
+
+  <hr>
+
+  <div id="chatbot-container">
+    <div id="chatbot">
+        <h3>Chat with Gemini</h3>
+        <div id="messages" style="height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;"></div>
+        <input type="text" id="message-input" placeholder="Ask about the paper..." style="width: calc(100% - 70px);">
+        <button id="send-message">Send</button>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const messagesDiv = document.getElementById('messages');
+  const messageInput = document.getElementById('message-input');
+  const sendMessageButton = document.getElementById('send-message');
+
+  const paperContent = '''{{ content | escape }}''';
+
+  sendMessageButton.addEventListener('click', async () => {
+    const userMessage = messageInput.value;
+    messageInput.value = '';
+    messagesDiv.innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
+
+    try {
+      const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              contents: userMessage,
+              context: paperContent
+          })
+      });
+
+      if (!response.ok) {
+        const error = await response.text();
+        throw new Error(error);
+      }
+
+      const data = await response.json();
+      const assistantMessage = data.text;
+      messagesDiv.innerHTML += `<p><strong>Assistant:</strong> ${assistantMessage}</p>`;
+    } catch (error) {
+      messagesDiv.innerHTML += `<p><strong>Error:</strong> ${error.message}</p>`;
+    }
+  });
+});
+</script>

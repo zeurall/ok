@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="google-site-verification" content="4Mj86ogE81O_JQlRitf6ABYTCVM1jn0w7YL6TS4ZFNU" />
+        <title>Volumetric Ergodic Control</title>
+          <meta name="description" content="Exploring AI, robotics, and physics projects by Dishana Rupani.">
+          <link rel="icon" type="image/png" sizes="512x512" href="/assets/images/favicon1.png">
+
+            <!-- CSS Stylesheets -->
+            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+              <link rel="stylesheet" href="/styles/main.css">
+                <link rel="stylesheet" href="/styles/navbar.css">
+                  <link rel="stylesheet" href="/styles/footer.css">
+                    <link rel="stylesheet" href="/styles/homepage.css">
+                      <link rel="stylesheet" href="/styles/blog.css">
+                        <link rel="stylesheet" href="/styles/theme.css">
+                          <link rel="stylesheet" href="/styles/courses.css">
+                            
+                                  </head>
+                                  <body>
+                                  
+                                    <!-- Navbar -->
+                                      <nav class="navbar">
+    <div class="navbar-container">
+        <a href="/" class="navbar-brand">
+            <img src="https://github.com/zeural1/zeural1.github.io/blob/main/assets/images/alz.jpeg?raw=true" 
+                 alt="Zeural Logo" 
+                 class="navbar-logo-img">
+            <span class="navbar-logo-text">Zeural</span>
+        </a>
+        <ul class="navbar-menu">
+            <li><a href="/content/mythology/index.html">Mythology</a></li>
+            <li><a href="/content/ai-ml/index.html">AI-ML</a></li>
+            <li><a href="/content/courses/index.html">Courses</a></li>
+            <li><a href="/content/research/research.html">Research</a></li>
+            <li><a href="/blog.html">Blogs</a></li>
+        </ul>
+        <div class="navbar-actions">
+            <div id="search-container">
+                <input type="text" id="search-input" placeholder="Search..." class="search-bar">
+                <ul id="search-results"></ul>
+            </div>
+            <button id="search-toggle" class="search-toggle">🔍</button>
+            <button id="theme-toggle" class="theme-toggle">🌙</button>
+            <button id="mobile-toggle" class="mobile-toggle">☰</button>
+        </div>
+    </div>
+</nav>
+
+                                      
+                                        <!-- Main page content -->
+                                          <main class="content-padding">
+                                              <div class="paper-container">
+  <h1>Volumetric Ergodic Control</h1>
+  <p><strong>Authors:</strong> Jueun Kwon, Max M. Sun, Todd Murphey</p>
+  <p><strong>PDF:</strong> <a href="https://arxiv.org/pdf/2511.11533v1" target="_blank">Download</a></p>
+  <p>Ergodic control synthesizes optimal coverage behaviors over spatial distributions for nonlinear systems. However, existing formulations model the robot as a non-volumetric point, but in practice a robot interacts with the environment through its body and sensors with physical volume. In this work, we introduce a new ergodic control formulation that optimizes spatial coverage using a volumetric state representation. Our method preserves the asymptotic coverage guarantees of ergodic control, adds minimal computational overhead for real-time control, and supports arbitrary sample-based volumetric models. We evaluate our method across search and manipulation tasks -- with multiple robot dynamics and end-effector geometries or sensor models -- and show that it improves coverage efficiency by more than a factor of two while maintaining a 100% task completion rate across all experiments, outperforming the standard ergodic control method. Finally, we demonstrate the effectiveness of our method on a robot arm performing mechanical erasing tasks.</p>
+
+  <hr>
+  <h2>Full Abstract</h2>
+  <div class="paper-body">
+    <p>Ergodic control synthesizes optimal coverage behaviors over spatial distributions for nonlinear systems. However, existing formulations model the robot as a non-volumetric point, but in practice a robot interacts with the environment through its body and sensors with physical volume. In this work, we introduce a new ergodic control formulation that optimizes spatial coverage using a volumetric state representation. Our method preserves the asymptotic coverage guarantees of ergodic control, adds minimal computational overhead for real-time control, and supports arbitrary sample-based volumetric models. We evaluate our method across search and manipulation tasks – with multiple robot dynamics and end-effector geometries or sensor models – and show that it improves coverage efficiency by more than a factor of two while maintaining a 100% task completion rate across all experiments, outperforming the standard ergodic control method. Finally, we demonstrate the effectiveness of our method on a robot arm performing mechanical erasing tasks.</p>
+
+  </div>
+
+  <hr>
+
+  <h2>Ask anything about this paper</h2>
+
+  <div id="chatbot-container">
+    <div id="api-key-sidebar">
+      <input type="text" id="api-key-input" placeholder="Enter your Gemini API key">
+      <button id="save-api-key">Save</button>
+      <div>
+        <input type="checkbox" id="use-public-assistant" checked>
+        <label for="use-public-assistant">Use public assistant (no key needed)</label>
+      </div>
+    </div>
+    <div id="chat-box" style="
+      border: 1px solid #aaa;
+      border-radius: 8px;
+      padding: 15px;
+      max-width: 700px;
+      background: #fafafa;">
+      
+      <div id="chat-log" style="min-height:120px; margin-bottom:10px;"></div>
+
+      <input id="chat-input"
+        type="text"
+        placeholder="Ask a question about this paper..."
+        style="width: 100%; padding: 10px; border-radius: 6px;">
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const apiKeyInput = document.getElementById('api-key-input');
+    const saveButton = document.getElementById('save-api-key');
+    const publicToggle = document.getElementById('use-public-assistant');
+    const chatInput = document.getElementById('chat-input');
+    const chatLog = document.getElementById('chat-log');
+    
+    let userApiKey = localStorage.getItem('gemini_api_key');
+    if (userApiKey) {
+      apiKeyInput.value = userApiKey;
+    }
+
+    saveButton.addEventListener('click', () => {
+        userApiKey = apiKeyInput.value.trim();
+        if (userApiKey) {
+            localStorage.setItem('gemini_api_key', userApiKey);
+            alert('API key saved!');
+        }
+    });
+
+    chatInput.addEventListener('keypress', async (e) => {
+        if (e.key === 'Enter') {
+            const question = chatInput.value.trim();
+            if (!question) return;
+
+            chatLog.innerHTML += `<p><strong>You:</strong> ${question}</p>`;
+            chatInput.value = '';
+
+            const paperContext = `You answer ONLY using the content of this research paper: Ergodic control synthesizes optimal coverage behaviors over spatial distributions for nonlinear systems. However, existing formulations model the robot as a non-volumetric point, but in practice a robot interacts with the environment through its body and sensors with physical volume. In this work, we introduce a new ergodic control formulation that optimizes spatial coverage using a volumetric state representation. Our method preserves the asymptotic coverage guarantees of ergodic control, adds minimal computational overhead for real-time control, and supports arbitrary sample-based volumetric models. We evaluate our method across search and manipulation tasks -- with multiple robot dynamics and end-effector geometries or sensor models -- and show that it improves coverage efficiency by more than a factor of two while maintaining a 100% task completion rate across all experiments, outperforming the standard ergodic control method. Finally, we demonstrate the effectiveness of our method on a robot arm performing mechanical erasing tasks. &lt;p&gt;Ergodic control synthesizes optimal coverage behaviors over spatial distributions for nonlinear systems. However, existing formulations model the robot as a non-volumetric point, but in practice a robot interacts with the environment through its body and sensors with physical volume. In this work, we introduce a new ergodic control formulation that optimizes spatial coverage using a volumetric state representation. Our method preserves the asymptotic coverage guarantees of ergodic control, adds minimal computational overhead for real-time control, and supports arbitrary sample-based volumetric models. We evaluate our method across search and manipulation tasks – with multiple robot dynamics and end-effector geometries or sensor models – and show that it improves coverage efficiency by more than a factor of two while maintaining a 100% task completion rate across all experiments, outperforming the standard ergodic control method. Finally, we demonstrate the effectiveness of our method on a robot arm performing mechanical erasing tasks.&lt;/p&gt;
+`;
+
+            if (publicToggle.checked) {
+                // Use the public assistant (backend proxy)
+                try {
+                    const response = await fetch('/api/chat', { // This will be our Firebase Function endpoint
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{
+                                parts: [{ text: `${paperContext}\n\n${question}` }]
+                            }]
+                        })
+                    });
+                    const data = await response.json();
+                    const answer = data.candidates[0].content.parts[0].text || 'Error from public assistant.';
+                    chatLog.innerHTML += `<p><strong>Bot:</strong> ${answer}</p>`;
+                } catch (error) {
+                    console.error('Error with public assistant:', error);
+                    chatLog.innerHTML += `<p><strong>Bot:</strong> Sorry, something went wrong with the public assistant.</p>`;
+                }
+            } else {
+                // Use the user's own API key
+                if (!userApiKey) {
+                    chatLog.innerHTML += `<p><strong>Bot:</strong> Please enter your Gemini API key to ask a question.</p>`;
+                    return;
+                }
+
+                try {
+                    const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${userApiKey}`;
+                    const response = await fetch(GEMINI_API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{
+                                parts: [{ text: `${paperContext}\n\n${question}` }]
+                            }]
+                        })
+                    });
+                    const data = await response.json();
+                    if (data.candidates && data.candidates.length > 0) {
+                        const answer = data.candidates[0].content.parts[0].text;
+                        chatLog.innerHTML += `<p><strong>Bot:</strong> ${answer}</p>`;
+                    } else {
+                         chatLog.innerHTML += `<p><strong>Bot:</strong> Sorry, I couldn't get a response. Check your API key and network connection.</p>`;
+                    }
+                } catch (error) {
+                    console.error('Error with user API key:', error);
+                    chatLog.innerHTML += `<p><strong>Bot:</strong> Sorry, something went wrong. Please check your API key and network connection.</p>`;
+                }
+            }
+        }
+    });
+});
+</script>
+                                                </main>
+                                                
+                                                  <!-- Footer -->
+                                                    <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <a href="/content/about/index.html" class="footer-logo-link">
+                <img src="/assets/images/alz.jpeg" alt="Alzeural Logo" class="footer-logo-img">
+                <div class="footer-logo">Zeural</div>
+            </a>
+            <p class="footer-tagline">High quality coding education maintained by an open source community.</p>
+        </div>
+        
+        <div class="footer-column">
+            <h3>About us</h3>
+            <ul>
+                <li><a href="/content/footer/about.html">About</a></li>
+                <li><a href="/content/footer/team.html">Team</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="#">Success Stories</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h3>Support</h3>
+            <ul>
+                <li><a href="/content/footer/faq.html">FAQ</a></li>
+                <li><a href="/content/footer/contribute.html">Contribute</a></li>
+                <li><a href="/content/footer/contact.html">Contact us</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h3>Guides</h3>
+            <ul>
+                <li><a href="/content/footer/guidelines.html">Community guides</a></li>
+                <li><a href="#">Installation guides</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h3>Legal</h3>
+            <ul>
+                <li><a href="/content/footer/terms.html">Terms</a></li>
+                <li><a href="/content/footer/privacy.html">Privacy</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>© 2025 Zeural. All rights reserved.</p>
+    </div>
+</footer>
+
+                                                    
+                                                      <script src="/scripts/background.js"></script>
+                                                        <script src="/scripts/cube-animation.js"></script>
+                                                          <script src="/scripts/mythology.js"></script>
+                                                            <script src="/scripts/navbar.js"></script>
+                                                              <script src="/scripts/progress-tracker.js"></script>
+                                                              <script src="/scripts/search.js"></script>
+                                                              <script src="/scripts/theme-switcher.js"></script>
+                                                              </body>
+</html>

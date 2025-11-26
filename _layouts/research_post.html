@@ -1,0 +1,23 @@
+---
+layout: default
+title: Research
+---
+<div class="research-container">
+  <div class="paper-column">
+    <h1>Latest AI Research</h1>
+    <ul>
+      {% for paper in site.research reversed %}
+        <li>
+          <h3><a href="{{ paper.url }}">{{ paper.title }}</a></h3>
+          <p>{{ paper.abstract | slice: 0, 250 }}...</p>
+          <a href="{{ paper.url }}">Read more</a>
+        </li>
+        <hr>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<div class="chatbot-container">
+  <input type="text" id="chat-input" placeholder="e.g., 'What were the key results?'">
+</div>
